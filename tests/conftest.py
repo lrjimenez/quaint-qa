@@ -6,6 +6,10 @@ from playwright.sync_api import sync_playwright
 def page():
     with sync_playwright() as p: 
         browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+        context = browser.new_context()
+        page = context.new_page()
+
         yield page
+
+        context.close()
         browser.close()     
